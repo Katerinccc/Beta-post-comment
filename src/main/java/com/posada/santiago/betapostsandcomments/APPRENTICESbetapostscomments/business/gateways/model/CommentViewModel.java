@@ -1,7 +1,7 @@
-package com.posada.santiago.betapostsandcomments.business.gateways.model;
+package com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.gateways.model;
 
 public class CommentViewModel {
-    private String id;
+    private String commentId;
     private String postId;
     private String author;
     private String content;
@@ -9,11 +9,19 @@ public class CommentViewModel {
     public CommentViewModel() {
     }
 
-    public CommentViewModel(String id, String postId, String author, String content) {
-        this.id = id;
+    public CommentViewModel(String commentId, String postId, String author, String content) {
+        this.commentId = commentId;
         this.postId = postId;
         this.author = author;
         this.content = content;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
     }
 
     public String getPostId() {
@@ -22,14 +30,6 @@ public class CommentViewModel {
 
     public void setPostId(String postId) {
         this.postId = postId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getAuthor() {

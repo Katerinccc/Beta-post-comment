@@ -9,9 +9,9 @@ public class CommentAdded extends DomainEvent {
     private String content;
 
 
-    public CommentAdded(String id, String author, String content) {
+    public CommentAdded(String commentId, String author, String content) {
         super("posada.santiago.commentcreated");
-        this.id = id;
+        this.id = commentId;
         this.author = author;
         this.content = content;
     }

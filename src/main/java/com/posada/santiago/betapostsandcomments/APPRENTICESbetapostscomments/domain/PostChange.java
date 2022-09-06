@@ -20,7 +20,9 @@ public class PostChange extends EventChange {
         });
 
         apply((CommentAdded event)-> {
-            Comment comment = new Comment(CommentId.of(event.getId()), new Author(event.getAuthor()), new Content(event.getContent()));
+            Comment comment = new Comment(CommentId.of(event.getId()),
+                    new Author(event.getAuthor()),
+                    new Content(event.getContent()));
             post.comments.add(comment);
         });
     }

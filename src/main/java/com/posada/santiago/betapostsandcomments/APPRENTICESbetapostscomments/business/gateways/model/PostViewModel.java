@@ -1,4 +1,4 @@
-package com.posada.santiago.betapostsandcomments.business.gateways.model;
+package com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.gateways.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,20 +6,20 @@ import java.util.List;
 public class PostViewModel {
 
     private String id;
-    private String aggregateId;
+    private String postId;
     private String author;
     private String title;
     private List<CommentViewModel> comments;
 
-    public PostViewModel() {
+    public PostViewModel(String postId, String author, String title) {
+        this.postId = postId;
+        this.author = author;
+        this.title = title;
         this.comments = new ArrayList<>();
     }
 
-    public PostViewModel(String aggregateId, String author, String title, List<CommentViewModel> comments) {
-        this.aggregateId = aggregateId;
-        this.author = author;
-        this.title = title;
-        this.comments = comments;
+    public void addCommentToExistentPost(CommentViewModel newComment){
+        this.comments.add(newComment);
     }
 
     public String getId() {
@@ -30,12 +30,12 @@ public class PostViewModel {
         this.id = id;
     }
 
-    public String getAggregateId() {
-        return aggregateId;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setAggregateId(String aggregateId) {
-        this.aggregateId = aggregateId;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     public String getAuthor() {
