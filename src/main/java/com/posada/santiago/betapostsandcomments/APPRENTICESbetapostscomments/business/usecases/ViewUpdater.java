@@ -1,6 +1,7 @@
 package com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.usecases;
 
 
+import com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.application.adapters.bus.RabbitMqEventBus;
 import com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.gateways.DomainViewRepository;
 import com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.gateways.model.CommentViewModel;
 import com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.gateways.model.PostViewModel;
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Service;
 public class ViewUpdater extends DomainUpdater {
 
     private final DomainViewRepository repository;
+    private final RabbitMqEventBus eventBus;
 
-    public ViewUpdater(DomainViewRepository repository) {
+    public ViewUpdater(DomainViewRepository repository, RabbitMqEventBus eventBus) {
         this.repository = repository;
+        this.eventBus = eventBus;
 
         listen((PostCreated event) -> {
             PostViewModel postView = new PostViewModel(
@@ -24,16 +27,18 @@ public class ViewUpdater extends DomainUpdater {
                     event.getTitle()
             );
             repository.saveNewPost(postView).subscribe();
+            eventBus.publishPostCreated(postView);
         });
 
         listen((CommentAdded event) -> {
-            CommentViewModel comment = new CommentViewModel(
+            CommentViewModel commentView = new CommentViewModel(
                     event.getId(),
                     event.aggregateRootId(),
                     event.getAuthor(),
                     event.getContent()
             );
-            repository.addCommentToPost(comment).subscribe();
+            repository.addCommentToPost(commentView).subscribe();
+            eventBus.publishCommentAdded(commentView);
         });
 
     }
