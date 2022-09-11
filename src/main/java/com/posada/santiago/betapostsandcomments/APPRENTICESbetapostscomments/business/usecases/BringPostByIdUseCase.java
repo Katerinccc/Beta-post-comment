@@ -1,23 +1,25 @@
 package com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.usecases;
 
 
+import com.mongodb.Function;
 import com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.gateways.DomainViewRepository;
 import com.posada.santiago.betapostsandcomments.APPRENTICESbetapostscomments.business.gateways.model.PostViewModel;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import java.util.function.Supplier;
+import reactor.core.publisher.Mono;
 
 @Service
-public class BringAllPostsUseCase implements Supplier<Flux<PostViewModel>> {
+public class BringPostByIdUseCase implements Function<String, Mono<PostViewModel>> {
 
     private final DomainViewRepository repository;
 
-    public BringAllPostsUseCase(DomainViewRepository repository) {
+    public BringPostByIdUseCase(DomainViewRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Flux<PostViewModel> get() {
-        return this.repository.findAllPosts();
+    public Mono<PostViewModel> apply(String postId) {
+        return repository.findByPostId(postId);
     }
+
+
 }

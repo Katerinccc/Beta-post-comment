@@ -10,7 +10,6 @@ public class StoredEvent {
     public StoredEvent() {
     }
 
-
     public StoredEvent(String eventBody, Date occurredOn, String typeName) {
         this.eventBody = eventBody;
         this.occurredOn = occurredOn;
