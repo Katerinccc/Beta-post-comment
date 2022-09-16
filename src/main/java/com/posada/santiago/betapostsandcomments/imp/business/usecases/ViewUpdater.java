@@ -7,8 +7,10 @@ import com.posada.santiago.betapostsandcomments.imp.business.gateways.model.Post
 import com.posada.santiago.betapostsandcomments.imp.business.generic.DomainUpdater;
 import com.posada.santiago.betapostsandcomments.imp.domain.events.CommentAdded;
 import com.posada.santiago.betapostsandcomments.imp.domain.events.PostCreated;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class ViewUpdater extends DomainUpdater {
 
@@ -26,7 +28,9 @@ public class ViewUpdater extends DomainUpdater {
                     event.getTitle()
             );
             repository.saveNewPost(postView).subscribe();
+            log.info("Post saved: " + postView);
             eventBus.publishPostCreated(postView);
+            log.info("Message send to rabbit: " + postView);
         });
 
         listen((CommentAdded event) -> {
@@ -37,7 +41,9 @@ public class ViewUpdater extends DomainUpdater {
                     event.getContent()
             );
             repository.addCommentToPost(commentView).subscribe();
+            log.info("Comment added: " + commentView);
             eventBus.publishCommentAdded(commentView);
+            log.info("Message send to rabbit: " + commentView);
         });
 
     }

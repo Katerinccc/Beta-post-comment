@@ -4,9 +4,11 @@ import co.com.sofka.domain.generic.DomainEvent;
 import com.google.gson.Gson;
 import com.posada.santiago.betapostsandcomments.imp.application.adapters.bus.Notification;
 import com.posada.santiago.betapostsandcomments.imp.business.usecases.UpdateViewUseCase;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.function.Consumer;
 
+@Slf4j
 @Service
 public class QueueHandler implements Consumer<String> {
 
@@ -26,6 +28,8 @@ public class QueueHandler implements Consumer<String> {
                 .getType()
                 .replace("alphapostsandcomments" ,
                         "betapostsandcomments.imp");
+
+        log.info("Message received from rabbit: " + receivedNotification);
 
         try {
             DomainEvent domainEvent =

@@ -41,4 +41,13 @@ public class Notification {
     public static Notification from(String aNotification){
         return new Notification().deserialize(aNotification);
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "type='" + type + '\'' +
+                ", body='" + body + '\'' +
+                ", instant=" + instant +
+                '}';
+    }
 }

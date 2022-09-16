@@ -1,8 +1,11 @@
 package com.posada.santiago.betapostsandcomments.imp.business.gateways.model;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class PostViewModel {
 
     private String id;
@@ -21,44 +24,14 @@ public class PostViewModel {
     public void addCommentToExistentPost(CommentViewModel newComment){
         this.comments.add(newComment);
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPostId() {
-        return postId;
-    }
-
-    public void setPostId(String postId) {
-        this.postId = postId;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<CommentViewModel> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentViewModel> comments) {
-        this.comments = comments;
+    @Override
+    public String toString() {
+        return "PostViewModel{" +
+                "id='" + id + '\'' +
+                ", postId='" + postId + '\'' +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", comments=" + comments +
+                '}';
     }
 }
